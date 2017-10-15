@@ -1,5 +1,7 @@
 import socket
+import time
 import threading
+from random import randint
 
 class ThreadedServer(object):
     def __init__(self, host, port):
@@ -22,6 +24,7 @@ class ThreadedServer(object):
             try:
                 data = client.recv(size)
                 if data:
+                    # Set the response to echo back the recieved data
                     response = data.decode()
                     print(response) 
                 else:
@@ -31,6 +34,33 @@ class ThreadedServer(object):
                 return False
 
 if __name__ == "__main__":
-    port_num = 1107
+    port = 1107
 
-    ThreadedServer('localhost',port_num).listen()
+    host = 'localhost'
+
+    while True:
+        # Create a TCP Socket
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        server_address = (host, port)
+
+        try:
+            sock.connect(server_address)
+        except:
+            time.sleep(randint(1, 5))
+            print("acting as server")
+            ThreadedServer('localhost', port).listen()
+
+        print("acting as client : ")
+        message = input()
+
+        try:
+            sock.sendall(message.encode())
+
+            amount_received = 0
+            amount_send = len(message)
+        except:
+            print("Data is not sent properly!")
+        finally:
+            sock.close()
+

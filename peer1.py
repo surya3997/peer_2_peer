@@ -34,7 +34,7 @@ class ThreadedServer(object):
                 return False
 
 if __name__ == "__main__":
-    port = 1107
+    port = 3997
 
     host = 'localhost'
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
         except:
             time.sleep(randint(1, 5))
             print("acting as server")
-            ThreadedServer('localhost', port).listen()
+            ThreadedServer('', port).listen()
 
         print("acting as client : ")
         message = input()

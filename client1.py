@@ -1,7 +1,7 @@
 import socket
 
-host = 'localhost'
-port = 1107
+host = '192.168.43.1'
+port = 6000
 
 while True:
     # Create a TCP Socket
